@@ -12,24 +12,31 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
+[System.Serializable]
+public class DefaultRoom
+{
+    public string Name;             //Sets the name of the room
+    public int sceneIndex;          //Sets the scene of the room
+    public int maxPlayer;           //Sets the max player per room amount
+    public bool isRoomVisible;      //Toggle for if the room is visible to other players
+    public bool isRoomOpen;      //Toggle for if the room is open to other players
+}
+
+
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     #region Variables
-    public byte maxPlayers = 10;    //Sets the max player per room amount
-    public bool isRoomVisible = true;   //Toggle for if the room is visible to other players
-    public bool isRoomOpen = true;      //Toggle for if the room is open to other players
+    public List<DefaultRoom> defaultRooms;  //Makes a reference for the DefaultRoom variables
 
+    //UI
+    public GameObject roomUI;               //Stores the room UI buttons
+        
 
     #endregion
 
     #region Unity Methods
 
-    void Start()
-    {
-        ConnectToServer();
-    }
-
-    void ConnectToServer()  //Connects the user to the server
+    public void ConnectToServer()  //Connects the user to the server
     {
         PhotonNetwork.ConnectUsingSettings();
 
@@ -44,22 +51,43 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         base.OnConnectedToMaster();
 
-        //Will create or attemp to join a new room\\
+        //Player joins the lobby
+        PhotonNetwork.JoinLobby(); 
+    }
+
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+
+        //Server Log
+        Debug.Log("***Now connected to the lobby***");
+
+        //Once a player joins the lobby, will show the room UI buttons
+        roomUI.SetActive(true);
+    }
+
+    public void InitiliazeRoom(int defaultRoomIndex) //Will create or attemp to join a new room
+    {
+
+        DefaultRoom roomSettings = defaultRooms[defaultRoomIndex];
+
+        //Loads the scene 
+        PhotonNetwork.LoadLevel(roomSettings.sceneIndex);
 
         //Creates new room
         RoomOptions roomOptions = new RoomOptions();
 
         //Sets Maxplayers per room
-        roomOptions.MaxPlayers = maxPlayers;
+        roomOptions.MaxPlayers = (byte)roomSettings.maxPlayer;
 
         //Option for if the room is visible to other players
-        roomOptions.IsVisible = isRoomVisible;
+        roomOptions.IsVisible = roomSettings.isRoomVisible;
 
         //Option for if the room is open to other players
-        roomOptions.IsOpen = isRoomOpen;
+        roomOptions.IsOpen = roomSettings.isRoomOpen;
 
         //Conditions for new room
-        PhotonNetwork.JoinOrCreateRoom("Room 1", roomOptions, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(roomSettings.Name, roomOptions, TypedLobby.Default);
     }
 
 
