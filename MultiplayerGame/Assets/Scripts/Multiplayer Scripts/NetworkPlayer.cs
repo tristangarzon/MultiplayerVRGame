@@ -15,6 +15,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class NetworkPlayer : MonoBehaviour
 {
     #region Variables
+    public List<GameObject> avatars; //Stores a list of custom player models
+
     public Transform head;          //Reference to the player Head
     public Transform leftHand;      //Reference to the player Left Hand
     public Transform rightHand;     //Reference to the player Right Hand
@@ -28,6 +30,8 @@ public class NetworkPlayer : MonoBehaviour
     private Transform rightHandRig;
 
     private PhotonView photonView;
+
+    private GameObject spawnedAvatar;
     #endregion
 
     #region Unity Methods
@@ -45,18 +49,33 @@ public class NetworkPlayer : MonoBehaviour
         //Store the transform of the Left Hand 
         rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
 
-        if(photonView.IsMine)
-        {
-            foreach (var item in GetComponentsInChildren<Renderer>()) //Returns all the renderer components of the network player
-            {
-                //Disables the renderer
-                item.enabled = false;
-            }
-        }
-
+        //Loads the avatar at the start of the game 
+        LoadAvatar(1);
     }
 
-   
+    public void LoadAvatar(int index)   //Loads an avatart among the avatar list
+    {
+        //Makes it so when this function is called on when avatar can exist for the player
+        if (spawnedAvatar)
+            Destroy(spawnedAvatar);
+
+
+        //Instantiates the avatar list
+        spawnedAvatar = Instantiate(avatars[index], transform); 
+        //Gets the infomation about the spawned avatar
+        AvatarInfo avatarInfo = spawnedAvatar.GetComponent<AvatarInfo>();
+
+        //Sets the loaded avatars head to follow the XR rig head
+        avatarInfo.head.SetParent(head, false);
+        //Sets the loaded avatars leftHand to follow the XR rig left hand 
+        avatarInfo.leftHand.SetParent(leftHand, false);
+        //Sets the loaded avatars rightHand to follow the XR rig right hand
+        avatarInfo.rightHand.SetParent(rightHand, false);
+
+        leftHandAnimator = avatarInfo.leftHandAnimator;
+        rightHandAnimator = avatarInfo.rightHandAnimator;
+    }
+
     void Update()
     {
         //Checks to see which prefab component is being used 
