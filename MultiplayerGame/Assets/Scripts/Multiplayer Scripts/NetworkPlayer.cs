@@ -50,7 +50,7 @@ public class NetworkPlayer : MonoBehaviour
         rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
 
         //Loads the avatar at the start of the game 
-        LoadAvatar(1);
+        LoadAvatar(2);
     }
 
     public void LoadAvatar(int index)   //Loads an avatart among the avatar list
@@ -103,6 +103,9 @@ public class NetworkPlayer : MonoBehaviour
 
     void UpdateHandAnimation(InputDevice targetDevice, Animator handAnimator)  //Updates the hand animation
     {
+        if (!handAnimator)
+            return;
+
         if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
         {
             handAnimator.SetFloat("Trigger", triggerValue);

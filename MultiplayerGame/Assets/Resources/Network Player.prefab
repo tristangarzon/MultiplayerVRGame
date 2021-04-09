@@ -171,6 +171,8 @@ MonoBehaviour:
   avatars:
   - {fileID: 6170317596233532470, guid: 3818d87054d2e5144bad1b4540a17e6f, type: 3}
   - {fileID: 6170317596233532470, guid: 57cd7c5ce52a2c54caf140e394bfa561, type: 3}
+  - {fileID: 6170317596233532470, guid: d4681c42bb92c874f983706d4da0c489, type: 3}
+  - {fileID: 6170317596233532470, guid: 75b8575caf4a3994db273db695e8b237, type: 3}
   head: {fileID: 6049794456078677283}
   leftHand: {fileID: 7737088911031512112}
   rightHand: {fileID: 1258327592287970342}
