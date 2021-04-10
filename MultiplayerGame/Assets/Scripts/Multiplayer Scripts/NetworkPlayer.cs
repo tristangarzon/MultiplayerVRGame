@@ -49,11 +49,18 @@ public class NetworkPlayer : MonoBehaviour
         //Store the transform of the Left Hand 
         rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
 
-        //Loads the avatar at the start of the game 
-        LoadAvatar(2);
+        //Loads Avatar
+        if (photonView.IsMine)
+            //Syncs the LoadAvatar function with other players over the network, even called when new players join the network 
+            photonView.RPC("LoadAvatar", RpcTarget.AllBuffered, PlayerPrefs.GetInt("AvatarID"));
+
+        
+        
+        
     }
 
-    public void LoadAvatar(int index)   //Loads an avatart among the avatar list
+    [PunRPC]
+    public void LoadAvatar(int index)   //Loads an avatar among the avatar list
     {
         //Makes it so when this function is called on when avatar can exist for the player
         if (spawnedAvatar)
