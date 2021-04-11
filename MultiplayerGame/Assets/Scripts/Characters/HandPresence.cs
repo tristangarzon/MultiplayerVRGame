@@ -15,7 +15,6 @@ public class HandPresence : MonoBehaviour
     private GameObject spawnedHandModel;
     private Animator handAnimator;
 
-    // Start is called before the first frame update
     void Start()
     {
         TryInitialize();
@@ -71,9 +70,27 @@ public class HandPresence : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    void controllerInput()
+    {
+        //Handles Primary button press for controller (Oculus [X/A] - Press)
+        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue) && primaryButtonValue)
+            Debug.Log("Primary button press");
+
+        //Handles Primary trigger press for controller (Trigger - Press)
+        if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1)
+            Debug.Log("Trigger press" + triggerValue);
+
+        //Handles Primary 2D Axis for controller (Joystick/Touchpad - Move)
+        if (targetDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 primary2DAxisValue) && primary2DAxisValue != Vector2.zero)
+            Debug.Log("Trigger press" + primary2DAxisValue);
+
+    }
+
     void Update()
     {
+        //Handles Movement
+        controllerInput();
+
         if(!targetDevice.isValid)
         {
             TryInitialize();
