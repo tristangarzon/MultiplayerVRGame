@@ -70,8 +70,10 @@ public class HandPresence : MonoBehaviour
         }
     }
 
+    /*
     void controllerInput()
     {
+
         //Handles Primary button press for controller (Oculus [X/A] - Press)
         if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue) && primaryButtonValue)
             Debug.Log("Primary button press");
@@ -85,11 +87,12 @@ public class HandPresence : MonoBehaviour
             Debug.Log("Trigger press" + primary2DAxisValue);
 
     }
+    */
 
     void Update()
     {
         //Handles Movement
-        controllerInput();
+       // controllerInput();
 
         if(!targetDevice.isValid)
         {
