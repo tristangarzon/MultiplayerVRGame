@@ -22,6 +22,9 @@ public class LocomotionController : MonoBehaviour
     public InputHelpers.Button teleportActivationButton;
     public float activationThreshold = 0.1f;
 
+    public bool EnableRightTeleport { get; set; } = true;
+    public bool EnableLeftTeleport { get; set; } = true;
+
     #region Variables
 
     #endregion
@@ -34,12 +37,12 @@ public class LocomotionController : MonoBehaviour
         //Checks if Left ray is active
         if(leftTeleportRay)
         {
-            leftTeleportRay.gameObject.SetActive(CheckIfActivated(leftTeleportRay));
+            leftTeleportRay.gameObject.SetActive(EnableLeftTeleport && CheckIfActivated(leftTeleportRay));
         }
 
         if (rightTeleportRay)
         {
-            rightTeleportRay.gameObject.SetActive(CheckIfActivated(rightTeleportRay));
+            rightTeleportRay.gameObject.SetActive(EnableRightTeleport && CheckIfActivated(rightTeleportRay));
         }
     }
 
