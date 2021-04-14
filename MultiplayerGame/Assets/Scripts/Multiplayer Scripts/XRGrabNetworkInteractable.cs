@@ -18,7 +18,10 @@ using Photon.Pun;
 public class XRGrabNetworkInteractable : XRGrabInteractable
 {
     #region Variables
-    private PhotonView photonView; 
+    private PhotonView photonView;
+
+    private Vector3 initalAttackLocalPos;
+    private Quaternion initialAttachLocalRot;
     #endregion
 	
     #region Unity Methods
@@ -26,6 +29,18 @@ public class XRGrabNetworkInteractable : XRGrabInteractable
     void Start()
     {
         photonView = GetComponent<PhotonView>();    //Stores a reference to the photonview component
+
+        //Creates an attach point to an object if it doesn't have one
+        if(!attachTransform)
+        {
+            GameObject grab = new GameObject("Grab Pivot");
+            grab.transform.SetParent(transform, false);
+            attachTransform = grab.transform;
+        }
+
+        initalAttackLocalPos = attachTransform.localPosition;
+        initialAttachLocalRot = attachTransform.localRotation;
+
     }
 
    
@@ -39,6 +54,18 @@ public class XRGrabNetworkInteractable : XRGrabInteractable
         //Request ownership of an object
        
         photonView.RequestOwnership();
+
+        if(interactor is XRDirectInteractor)
+        {
+            attachTransform.position = interactor.transform.position;
+            attachTransform.rotation = interactor.transform.rotation;
+        }
+        else
+        {
+            attachTransform.localPosition = initalAttackLocalPos;
+            attachTransform.localRotation = initialAttachLocalRot;
+               
+        }
 
         base.OnSelectEntered(interactor);
     }
