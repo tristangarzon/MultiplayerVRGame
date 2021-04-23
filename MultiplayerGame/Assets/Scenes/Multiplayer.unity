@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: c32d9346d8561a943b75e102b75d3a3e,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -15835,6 +15835,7 @@ GameObject:
   - component: {fileID: 1826838466}
   - component: {fileID: 1826838463}
   - component: {fileID: 1826838465}
+  - component: {fileID: 1826838467}
   m_Layer: 10
   m_Name: XR Rig
   m_TagString: Untagged
@@ -15956,7 +15957,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0.5, y: 1, z: -0.5}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &1826838465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15992,6 +15993,21 @@ MonoBehaviour:
   - {fileID: 1453536455}
   m_DeadzoneMin: 0.125
   m_DeadzoneMax: 0.925
+--- !u!114 &1826838467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826838457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6bf904e410ee8479f9093d8830d1f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LocomotionProvider: {fileID: 0}
+  m_MinHeight: 0
+  m_MaxHeight: Infinity
 --- !u!1 &1830354364
 GameObject:
   m_ObjectHideFlags: 0
