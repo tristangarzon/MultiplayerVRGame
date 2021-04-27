@@ -1289,8 +1289,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultRooms:
-  - Name: Zombie Room
+  - Name: VR Park
     sceneIndex: 1
+    maxPlayer: 10
+    isRoomVisible: 1
+    isRoomOpen: 1
+  - Name: VR Zombie
+    sceneIndex: 2
     maxPlayer: 10
     isRoomVisible: 1
     isRoomOpen: 1
