@@ -27,6 +27,8 @@ ExportedObj/
 *.png
 *.psd
 *.mat
+*.hdr
+*.meta
 
 # Unity3D generated meta files
 *.pidb.meta
