@@ -94,7 +94,7 @@ Material:
     m_Colors:
     - Color_91C3A855: {r: 1, g: 1, b: 1, a: 0}
     - Color_CB5D95E0: {r: 0.5707547, g: 0.9217731, b: 1, a: 0.13333334}
-    - _BaseColor: {r: 0.41981128, g: 0.4620542, b: 1, a: 1}
+    - _BaseColor: {r: 0.41981125, g: 0.4620542, b: 1, a: 0.38431373}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
